@@ -1,4 +1,3 @@
-
 from urllib.request import urlopen
 import time
 import os
@@ -7,6 +6,7 @@ import socket
 import platform
 import psutil
 import uuid
+import shutil
 
 os.system("clear")
 time.sleep(1)
@@ -14,12 +14,14 @@ time.sleep(1)
 print('Welcome to my project SystemEye !')
 time.sleep(0.5)
 print(" ")
-print("Tools: [1]wifi [2]ip [3]infos [4]wifi2 [5]mac [6]interface [7]ping [8]infos2 [9]disk [10]publicIP")
+print("Tools: [1]wifi [2]ip [3]infos [4]wifi2 [5]mac [6]interface [7]ping [8]infos2 [9]disk [10]ip2")
+print("[11]security [12]manager [13]battery")
 print(" ")
 print("Useful tools: clear exit")
+print(" ")
 
 while True:
-    user = input("~ ").strip().lower()
+    user = input("Choose an option: ").strip().lower()
     if user == "1":
         time.sleep(0.3)
         print("Scan in progress.......")
@@ -110,3 +112,104 @@ while True:
         except Exception:
             print("Public IP: Unable to retrieve")
 
+    if user == "11":
+        print("\n Security")
+        print("-----------")
+
+        if os.getuid() == 0:
+            print("Root privileges : Yes")
+        else:
+            print("Root privileges : No")
+
+        try:
+            ports = subprocess.check_output(["ss", "-tuln"], text=True)
+            print("Open ports    :", len(ports.splitlines()) - 1)
+        except:
+            print("Open ports    : Error")
+
+        try:
+            ssh = subprocess.check_output(
+                ["systemctl", "is-active", "sshd"],
+                text=True
+            ).strip()
+            print("SSH Service    :", ssh)
+        except:
+            print("SSH Service    : Unknow")
+
+        try:
+            firewall = subprocess.check_output(
+                ["ufw", "status"],
+                text=True
+            )
+            if "active" in firewall.lower():
+                print("Firewall    : Active")
+            else:
+                print("Firewall    : Inactive")
+        except:
+            print("Firewall    : Not installed")
+
+    if user == "12":
+        print("\n Package manager")
+        print("------------------")
+
+        if shutil.which("pacman"):
+            print("Manager: pacman")
+            package = subprocess.check_output(["pacman", "-Q"], text=True)
+            print("Installed packages:", len(package.splitlines()))
+
+        elif shutil.which("apt"):
+            print("Manager: apt")
+            package = subprocess.check_output(
+                "dpkg -1 | grep '^ii' | wc -L",
+                shell=True,
+                text=True
+            )
+            print("Installed packages:", package.strip())
+
+        elif shutil.which("dnf"):
+            print("Manager: dnf")
+            package = subprocess.check_output(
+                ["dnf", "list", "installed"],
+                text=True
+            )
+            print("Installed packages:", len(package.splitlines()) - 1)
+
+        elif shutil.which("zypper"):
+            print("Manager: zypper")
+            package = subprocess.check_output(
+                ["rpm", "-qa"],
+                text=True
+            )
+            print("Installed packages", len(package.splitlines()))
+
+        elif shutil.which("apk"):
+            print("Manager: apk")
+            package = subprocess.check_output(
+                ["apk", "info"],
+                text=True
+            )
+            print("Installed packages", len(package.splitlines()))
+
+        else:
+            print("Package Manager: Unknown")
+
+    if user == "13":
+        battery = psutil.sensors_battery()
+
+        print("\n Battery")
+        print("----------")
+
+        if battery:
+            print("Battery level :", battery.percent, "%")
+
+            if battery.power_plugged:
+                print("Status    : Charging")
+            else:
+                print("Status    : Discharging")
+
+            if battery.secsleft != psutil.POWER_TIME_UNLIMITED:
+                minutes = battery.secsleft // 60
+                print("Time left    :", minutes, "minutes")
+
+        else:
+            print("Battery    : Not available")
