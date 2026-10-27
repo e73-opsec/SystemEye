@@ -1,4 +1,5 @@
 from urllib.request import urlopen
+from rich import print
 import time
 import os
 import subprocess
@@ -11,23 +12,25 @@ import shutil
 os.system("clear")
 time.sleep(1)
 
-print('Project SystemEye :')
+print('[red]Project SystemEye :[/red]')
 time.sleep(0.5)
 print(" ")
-print("\n TOOLS")
-print("--------")
-print("[1]Wifi scan   ", "    ", "[11]Security")
-print("[2]Local IP", "        ", "[12]Packages manager")
-print("[3]System infos","    ", "[13]Battery infos")
-print("[4]Wifi infos", "      ",  "[14]DNS lookup")
-print("[5]MAC address", "     ", "[15]Traceroute")
-print("[6]Wifi addr", "       ", "[16]Reverse DNS lookup")
-print("[7]Ping", "            ", "[17]Port checker"  )
-print("[8]Hardware infos")
-print("[9]Disk infos")
-print("[10]Public IP")
+print("\n [cyan]TOOLS[/cyan]")
+print("[cyan]--------[/cyan]")
+print("""[cyan]
+[1]Wifi scan          [11]Security
+[2]Local IP           [12]Packages manager
+[3]System infos       [13]Battery infos
+[4]Wifi infos         [14]DNS lookup
+[5]MAC address        [15]Traceroute
+[6]Wifi addr          [16]Reverse DNS lookup
+[7]Ping               [17]Port checker
+[8]Hardware infos")
+[9]Disk infos")
+[10]Public IP
+[/cyan]""")
 print(" ")
-print("Useful tools: clear exit")
+print("[cyan]Useful tools: clear exit[/cyan]")
 print(" ")
 
 while True:
