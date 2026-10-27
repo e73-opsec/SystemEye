@@ -4,4 +4,4 @@ ONLY LINUX !!!
 Windows not supported !!!
 
 Feature fun and cool !
-code open source
+Redistribution is NOT PERMITTED WHITHOUT PERMISSION !!!!!! 
