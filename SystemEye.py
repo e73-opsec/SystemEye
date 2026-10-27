@@ -11,18 +11,19 @@ import shutil
 os.system("clear")
 time.sleep(1)
 
-print('Welcome to my project SystemEye !')
+print('Project SystemEye :')
 time.sleep(0.5)
+print(" ")
 print(" ")
 print("\n TOOLS")
 print("--------")
 print("[1]Wifi    ", "        ", "[11]Security")
 print("[2]Local IP", "        ", "[12]Packages manager")
 print("[3]System infos","    ", "[13]Battery infos")
-print("[4]Wifi infos")
-print("[5]MAC adress")
-print("[6]Wifi addr")
-print("[7]Ping")
+print("[4]Wifi infos", "      ",  "[14]DNS lookup")
+print("[5]MAC address", "     ", "[15]Traceroute")
+print("[6]Wifi addr", "       ", "[16]Reverse DNS lookup")
+print("[7]Ping", "            ", "[17]Port checker"  )
 print("[8]Material infos")
 print("[9]Disk infos")
 print("[10]Public IP")
@@ -223,3 +224,61 @@ while True:
 
         else:
             print("Battery    : Not available")
+
+    if user == "14":
+        domain = input("Domaine: ")
+
+        try:
+            results = socket.getaddrinfo(domain, None)
+
+            print("\nIP Addresses:")
+            seen = set()
+
+            for result in results:
+                ip = result[4][0]
+                if ip not in seen:
+                    seen.add(ip)
+                    print("-", ip)
+
+        except socket.gaierror:
+            print("Unable to resolve domain")
+
+    if user == "15":
+        host = input("Host:  ")
+
+        if shutil.which("traceroute"):
+            subprocess.run(["traceroute", host])
+        elif shutil.which("tracepath"):
+            subprocess.run(["tracepath", host])
+
+        else:
+            print("Traceroute is not installed.")
+
+    if user == "16":
+        ip = input("IP Address:  ")
+
+        try:
+            hostname = socket.gethostbyaddr(ip)
+            print("Hostname:", hostname[0])
+        except socket.herror:
+            print("No hostname found !")
+        except socket.gaierror:
+            print("Invalid IP address")
+
+    if user == "17":
+        host = input("Host:  ")
+        port = int(input("Port:  "))
+
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.settimeout(3)
+
+        result = sock.connect_ex((host, port))
+
+        if result == 0:
+            print(f"Port {port} is OPEN")
+        else:
+            print(f"Port {port} is CLOSED")
+
+        sock.close()
+
+    
