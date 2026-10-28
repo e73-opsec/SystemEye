@@ -3,4 +3,5 @@
 LINUX ONLY !!!
 Windows is not supported !!!
 
-pip install rich (optional)
+pip install rich
+pip install psutil
