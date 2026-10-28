@@ -7,4 +7,4 @@ Feature fun and cool !
 Redistribution is NOT PERMITTED WHITHOUT PERMISSION !!!!!! 
 
 
-pip install rice (optional)
+pip install rich (optional)
