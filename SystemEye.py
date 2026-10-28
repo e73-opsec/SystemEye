@@ -36,8 +36,6 @@ print(" ")
 while True:
     user = input("Choose an option: ").strip().lower()
     if user == "1":
-        time.sleep(0.3)
-        print("Scan in progress.......")
 
         result = subprocess.check_output(
                 ["nmcli", "-t", "-f", "SSID, SIGNAL,SECURITY", "dev", "wifi",],
