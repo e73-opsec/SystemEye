@@ -25,13 +25,10 @@ print("""[cyan]
 [5]MAC address        [15]Traceroute
 [6]Wifi addr          [16]Reverse DNS lookup
 [7]Ping               [17]Port checker
-<<<<<<< HEAD
 [8]Hardware infos
 [9]Disk infos
-=======
 [8]Hardware infos")
 [9]Disk infos")
->>>>>>> eab51ed81ac2a4cdd1fa8c2169cd8fd9af351936
 [10]Public IP
 [/cyan]""")
 print(" ")
